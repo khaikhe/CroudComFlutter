@@ -10,19 +10,19 @@ void main() {
 class MyApp extends StatelessWidget {
 TextEditingController name =TextEditingController();
 TextEditingController email =TextEditingController();
-TextEditingController passoword =TextEditingController();
+TextEditingController password =TextEditingController();
 
   // This widget is the root of your application.
 
-Future<void> inserrecord() async
+Future<void> insertrecord() async
 {
-  if(name.text=="" || email.text==""|| passoword=="") {
+  if(name.text!="" || email.text!=""|| password!="") {
     try {
-      String uri = "http://127.0.0.1/Pratica_API/insert_record.php";
+      String uri = "http://127.0.0.1/practice_api/insert_record.php";
       var res = await http.post(Uri.parse(uri), body: {
         "name":name.text,
         "email":email.text,
-        "passoword":passoword.text
+        "password":password.text,
       });
       
       var response=jsonDecode(res.body);
@@ -69,16 +69,16 @@ Future<void> inserrecord() async
         Container(
             margin: const EdgeInsets.all(10),
             child: TextFormField(
-            controller: passoword,
+            controller: password,
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(), label: Text(' Digite sua senha '))
             )
         ),
      Container(
-         margin: EdgeInsets.all(10),
+         margin: const EdgeInsets.all(10),
          child: ElevatedButton(
            onPressed: (){
-             inserrecord();
+             insertrecord();
   },
            child: Text('Inset'),
          ),
