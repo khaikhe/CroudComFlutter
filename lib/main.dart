@@ -91,7 +91,7 @@ Future<void> insertrecord() async
            onPressed: (){
              insertrecord();
   },
-           child: Text('Inset'),
+           child: Text('Salvar'),
          ),
      ),
         Container(
@@ -103,7 +103,7 @@ Future<void> insertrecord() async
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => view_data()));
               },
-                  child: Text("View Data"));
+                  child: Text(" Ver Historico "));
           },
           ),
       )

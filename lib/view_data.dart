@@ -35,7 +35,7 @@ class _view_dataState extends State<view_data> {
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      appBar: AppBar(title:  Text("View Data")),
+      appBar: AppBar(title:  Text(" Ver Historico ")),
       body: ListView.builder(
         itemCount: userdata.length,
         itemBuilder:(context,index) {
