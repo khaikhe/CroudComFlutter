@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firstcroud/view_data.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -18,7 +19,7 @@ Future<void> insertrecord() async
 {
   if(name.text!="" || email.text!=""|| password!="") {
     try {
-      String uri = "http://127.0.0.1/practice_api/insert_record.php";
+      String uri = "https://flutter123456.000webhostapp.com/insert_record.php";
       var res = await http.post(Uri.parse(uri), body: {
         "name":name.text,
         "email":email.text,
@@ -29,6 +30,9 @@ Future<void> insertrecord() async
       if(response["success"]=="true")
         {
           print(" Record Insert ");
+          name.text="";
+          email.text="";
+          password.text="";
         }
       else{
         print("Some issue");
@@ -82,8 +86,20 @@ Future<void> insertrecord() async
   },
            child: Text('Inset'),
          ),
-     )
-
+     ),
+        Container(
+        margin: EdgeInsets.all(10),
+          child: Builder(
+            builder: (cntext) {
+              return ElevatedButton(
+              onPressed:(){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => view_data()));
+              },
+                  child: Text("View Data"));
+          }
+          ),
+      )
       ]),
       )
     );
