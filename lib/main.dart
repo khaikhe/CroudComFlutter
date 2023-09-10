@@ -1,14 +1,21 @@
 import 'dart:convert';
 
-import 'package:firstcroud/view_data.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:firstcroud/view_data.dart';
 
 void main() {
   runApp( MyApp());
 }
+class MyApp extends StatefulWidget {
+  MyApp({Key? key}) : super(key: key);
 
-class MyApp extends StatelessWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+
+class _MyAppState extends State <MyApp> {
 TextEditingController name =TextEditingController();
 TextEditingController email =TextEditingController();
 TextEditingController password =TextEditingController();
@@ -17,7 +24,7 @@ TextEditingController password =TextEditingController();
 
 Future<void> insertrecord() async
 {
-  if(name.text!="" || email.text!=""|| password!="") {
+  if(name.text!="" || email.text!=""|| password.text!="") {
     try {
       String uri = "https://flutter123456.000webhostapp.com/insert_record.php";
       var res = await http.post(Uri.parse(uri), body: {
@@ -90,18 +97,18 @@ Future<void> insertrecord() async
         Container(
         margin: EdgeInsets.all(10),
           child: Builder(
-            builder: (cntext) {
+            builder: (context) {
               return ElevatedButton(
-              onPressed:(){
+              onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => view_data()));
               },
                   child: Text("View Data"));
-          }
+          },
           ),
       )
       ]),
-      )
+      ),
     );
   }
 }

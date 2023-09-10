@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,17 +13,46 @@ class view_data extends StatefulWidget {
 }
 
 class _view_dataState extends State<view_data> {
-  getrecord() async {}
+  List userdata= [];
+  Future<void> getrecord() async {
+    String uri = "https://flutter123456.000webhostapp.com/view_data.php";
+    try
+        {
+          var response= await http.get(Uri.parse(uri));
+          setState(() {
+            userdata = jsonDecode(response.body);
+          });
+        }
+        catch(e)
+        {print(e);}
+  }
   @override
   void initState() {
-    //TODO: Implement initState
     getrecord();
     super.initState();
   }
+
+  @override
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(title:  Text("View Data")),
-      body: ListView(),
+      body: ListView.builder(
+        itemCount: userdata.length,
+        itemBuilder:(context,index) {
+          if( userdata != null && userdata.isNotEmpty) {
+            return Card(
+              margin: EdgeInsets.all(10),
+              child: ListTile(
+                leading: Icon(CupertinoIcons.heart),
+                title: Text(userdata[index]['uname']??''),
+                subtitle: Text(userdata[index]['uemail']??''),
+              ),
+            );
+          }
+          else{
+            return Center(child: Text("Nenhum dado disponivel"));
+          }
+        }),
     );
   }
 }
