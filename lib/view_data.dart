@@ -14,8 +14,24 @@ class view_data extends StatefulWidget {
 
 class _view_dataState extends State<view_data> {
   List userdata= [];
+  Future<void> delrecord(String id) async {
+    try{
+       String uri = "https://flutter123456.000webhostapp.com/delete_data.php";
+
+       var res =await http.post(Uri.parse(uri),body:{"id": id});
+       var response = jsonDecode(res.body);
+       if(response['success'] == 'true'){
+         print(" Conta Deletada Com Sucesso! ");
+         getrecord();
+       }else{
+         print(" Falha ao deletar conta! ");
+    }
+    }
+    catch(e){print(e);}
+  }
+
   Future<void> getrecord() async {
-    String uri = "https://flutter123456.000webhostapp.com/view_data.php";
+      String uri = "https://flutter123456.000webhostapp.com/view_data.php";
     try
         {
           var response= await http.get(Uri.parse(uri));
@@ -44,9 +60,16 @@ class _view_dataState extends State<view_data> {
               margin: EdgeInsets.all(10),
               child: ListTile(
                 leading: Icon(CupertinoIcons.heart),
+                iconColor: Colors.purpleAccent,
                 title: Text(userdata[index]['uname']??''),
                 subtitle: Text(userdata[index]['uemail']??''),
+                trailing: IconButton(
+                  icon: Icon(Icons.delete),
+                onPressed: (){
+                    delrecord(userdata[index]["uid"]);
+              },
               ),
+            ),
             );
           }
           else{
