@@ -56,24 +56,25 @@ class _view_dataState extends State<view_data> {
       body: ListView.builder(
         itemCount: userdata.length,
         itemBuilder:(context,index) {
-          if( userdata != null && userdata.isNotEmpty) {
+          if( userdata.isNotEmpty) {
             return Card(
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               child: ListTile(
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => UpdateRecord(
-                        userdata[index]['uname'],
-                        userdata[index]['uemail'],
-                        userdata[index]['upassword'],
+                      MaterialPageRoute(
+                          builder: (context) => UpdateRecord(
+                        userdata[index]['uname']??'',
+                        userdata[index]['uemail']??'',
+                        userdata[index]['upassword']??'',
                       )));
                 },
-                leading: Icon(CupertinoIcons.heart),
-                iconColor: Colors.purpleAccent,
+                leading: const Icon(CupertinoIcons.heart),
+                iconColor: (Colors.purpleAccent),
                 title: Text(userdata[index]['uname']??''),
                 subtitle: Text(userdata[index]['uemail']??''),
                 trailing: IconButton(
-                  icon: Icon(Icons.delete),
+                  icon: const Icon(Icons.delete),
                 onPressed: (){
                     delrecord(userdata[index]["uid"]);
               },
@@ -82,7 +83,7 @@ class _view_dataState extends State<view_data> {
             );
           }
           else{
-            return Center(child: Text("Nenhum dado disponivel"));
+            return const Center(child: Text("Nenhum dado disponivel"));
           }
         }),
     );
