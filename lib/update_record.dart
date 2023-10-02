@@ -1,43 +1,50 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 // ignore: must_be_immutable
-class UpdateRecord extends StatefulWidget {
+class update_record extends StatefulWidget {
   String name;
   String email;
   String password;
-  UpdateRecord(this.name, this.email, this.password);
+  update_record(this.name, this.email, this.password);
 
   @override
-  State<UpdateRecord> createState() => _UpdateRecordState();
+  State<update_record> createState() => _update_recordState();
 }
 
-class _UpdateRecordState extends State<UpdateRecord> {
+class _update_recordState extends State<update_record> {
   TextEditingController name = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-  Future<void> updateRecord() async {
+  Future<void> updaterecord() async {
     try {
       String uri = "https://flutter123456.000webhostapp.com/update_data.php";
-
-      // Certifique-se de que os controladores de texto não sejam nulos ou vazios
-      if (name != null && email != null && password != null) {
-        // Faça algo com a URI, como fazer uma solicitação HTTP, aqui
-        print("URI: $uri");
-      } else {
-        print("Erro: Alguns controladores de texto são nulos ou vazios.");
+      var res = await http.post(Uri.parse(uri), body:
+      {
+        "name": name.text,
+        "email": email.text,
+        "password": password.text
+      });
+      var response = jsonDecode(res.body);
+      if(response["success"]=="true")
+      {
+        print("Atualizado com sucesso!");
+      }else {
+        print(" Erro ao atualizar ");
       }
     } catch (e) {
-      print("Erro ao atualizar o registro: $e");
+      print(e);
     }
   }
 
   @override
   void initState() {
+    name.text = widget.name ;
+    email.text = widget.email ;
+    password.text = widget.password ;
     super.initState();
-    name.text = widget.name ?? ""; // Use "" como valor padrão se widget.name for nulo
-    email.text = widget.email ?? ""; // Use "" como valor padrão se widget.email for nulo
-    password.text = widget.password ?? ""; // Use "" como valor padrão se widget.password for nulo
   }
 
 
@@ -81,7 +88,7 @@ class _UpdateRecordState extends State<UpdateRecord> {
             margin: const EdgeInsets.all(10),
             child: ElevatedButton(
               onPressed: () {
-                updateRecord();
+                updaterecord();
               },
               child: const Text('Atualizar'),
             ),

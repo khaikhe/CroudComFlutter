@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+
 class view_data extends StatefulWidget {
   view_data({Key? key}) : super (key: key);
 
@@ -60,17 +61,15 @@ class _view_dataState extends State<view_data> {
             return Card(
               margin: const EdgeInsets.all(10),
               child: ListTile(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(
-                          builder: (context) => UpdateRecord(
-                        userdata[index]['uname']??'',
-                        userdata[index]['uemail']??'',
-                        userdata[index]['upassword']??'',
-                      )));
-                },
-                leading: const Icon(CupertinoIcons.heart),
-                iconColor: (Colors.purpleAccent),
+                onTap: () { Navigator.push(context,
+                    MaterialPageRoute(
+                        builder: (context) => update_record(
+                          userdata[index]['uname']??'',
+                          userdata[index]['uemail']??'',
+                          userdata[index]['upassword']??'',
+                        )));},
+                leading: const Icon(CupertinoIcons.heart,color: Colors.pinkAccent,
+                ),
                 title: Text(userdata[index]['uname']??''),
                 subtitle: Text(userdata[index]['uemail']??''),
                 trailing: IconButton(

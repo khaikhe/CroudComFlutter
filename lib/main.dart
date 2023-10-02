@@ -36,7 +36,7 @@ Future<void> insertrecord() async
       var response=jsonDecode(res.body);
       if(response["success"]=="true")
         {
-          print(" Record Insert ");
+          print(" Salvo com sucesso ");
           name.text="";
           email.text="";
           password.text="";
